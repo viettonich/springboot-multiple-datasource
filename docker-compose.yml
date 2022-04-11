@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  app:
+    container_name: springboot-postgresql
+    image: springboot-postgresql
+    build: ./
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=spring_security
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+volumes:
+  dbdata:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: 'E:\docker\postgres\data'
